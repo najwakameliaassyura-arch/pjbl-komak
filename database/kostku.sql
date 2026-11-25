@@ -229,5 +229,18 @@ INSERT INTO `keluhan` (`id`, `penghuni_id`, `kamar_id`, `judul_keluhan`, `deskri
 (1, 1, 1, 'Keran Wastafel Kamar Mandi Menetes Bocor', 'Kran wastafel di depan kamar tidak bisa ditutup rapat dan terus meneteskan air, mohon bantuan perbaikannya.', NULL, 'Diproses', 'Teknisi sanitasi sudah dihubungi dan dijadwalkan datang untuk mengganti karet kran besok pagi jam 10.00 WIB.', '2026-11-14 09:00:00', '2026-11-14 13:00:00'),
 (2, 2, 4, 'Baterai Remote AC Habis', 'Remote AC kamar K-201 layarnya redup dan tidak merespons tombol suhu.', NULL, 'Selesai', 'Baterai remot sudah diganti baru tipe AAA oleh staf pengelola kos.', '2026-11-10 16:30:00', '2026-11-10 17:15:00');
 
+-- --------------------------------------------------------
+-- Table structure for table `ci_sessions`
+-- --------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS `ci_sessions` (
+  `id` varchar(128) NOT NULL,
+  `ip_address` varchar(45) NOT NULL,
+  `timestamp` timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  `data` blob NOT NULL,
+  PRIMARY KEY (`id`, `ip_address`),
+  KEY `ci_sessions_timestamp` (`timestamp`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 SET FOREIGN_KEY_CHECKS = 1;
 COMMIT;

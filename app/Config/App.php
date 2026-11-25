@@ -18,11 +18,16 @@ class App extends BaseConfig
      */
     public string $baseURL = 'http://localhost:8080/';
 
+    public string $sessionDriver = \CodeIgniter\Session\Handlers\DatabaseHandler::class;
+    public string $sessionSavePath = 'ci_sessions';
+
     public function __construct()
     {
         parent::__construct();
 
-        if (isset($_SERVER['HTTP_HOST'])) {
+        if (isset($_SERVER['VERCEL_URL'])) {
+            $this->baseURL = 'https://' . $_SERVER['VERCEL_URL'] . '/';
+        } elseif (isset($_SERVER['HTTP_HOST'])) {
             $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https://' : 'http://';
             $scriptDir = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''));
             $scriptDir = rtrim($scriptDir, '/');

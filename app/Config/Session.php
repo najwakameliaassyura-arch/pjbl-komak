@@ -4,6 +4,7 @@ namespace Config;
 
 use CodeIgniter\Config\BaseConfig;
 use CodeIgniter\Session\Handlers\BaseHandler;
+use CodeIgniter\Session\Handlers\DatabaseHandler;
 use CodeIgniter\Session\Handlers\FileHandler;
 
 class Session extends BaseConfig
@@ -91,6 +92,16 @@ class Session extends BaseConfig
      * will be later deleted by the garbage collector.
      */
     public bool $regenerateDestroy = false;
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        if (getenv('VERCEL') || isset($_ENV['VERCEL']) || isset($_SERVER['VERCEL'])) {
+            $this->driver = DatabaseHandler::class;
+            $this->savePath = 'ci_sessions';
+        }
+    }
 
     /**
      * --------------------------------------------------------------------------
